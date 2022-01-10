@@ -21,9 +21,9 @@ const register = () => {
       // check if username is too long
       if(data.username.length >= 10) return setError("Username must be less than 10 characters");
       // check if password is too short
-      if(data.password.length <= 5) return setError("Password must be atleast 6 characters long")
+      if(data.password.length <= 5) return setError("Password must be atleast 6 characters long");
 
-      setError("")
+      setError("");
 
       // POST to server
       const res = await fetch("/api/registeruser", {
@@ -36,6 +36,9 @@ const register = () => {
 
       // server response
       const result = await res.json();
+      
+      if(result.error) setError(result.error)
+
       console.log(result);
     };
 
