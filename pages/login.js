@@ -4,12 +4,16 @@ const login = () => {
     // error message
     const [error, setError] = useState("");
 
+    const authUserSubmit = (event)=>{
+        event.preventDefault();
+    }
+
     return (
         <div>
             <div className="authFormContainer">
                 <form 
                 className="authForm"
-                onSubmit={registerUserSubmit}>
+                onSubmit={authUserSubmit}>
 
                     <input
                     className="authUsername"
@@ -27,7 +31,7 @@ const login = () => {
                     value="Sign in" />
 
                 </form>
-                <h3 className="registerResponse">{error}</h3>
+                <h3 className="responseMessage">{error}</h3>
             </div>
         </div>
     )

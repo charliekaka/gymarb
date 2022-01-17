@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import { useRouter } from "next/router";
 
 const register = () => {
   // error message
   const [error, setError] = useState("");
+  const router = useRouter();
 
   // register function
   const registerUserSubmit = async (event) => {
@@ -39,8 +41,12 @@ const register = () => {
     // server response
     const result = await res.json();
 
-    // show error to user
-    if(result.error) setError(result.error);
+    if(result){
+      // renavigate user to homepage
+      router.push("/");
+    }else{
+      setError("Username is already taken");
+    }
   };
 
     return (
@@ -71,7 +77,7 @@ const register = () => {
                     value="Register" />
 
                 </form>
-                <h3 className="registerResponse">{error}</h3>
+                <h3 className="responseMessage">{error}</h3>
             </div>
         </div>
     )

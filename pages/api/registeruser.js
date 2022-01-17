@@ -36,19 +36,22 @@ export default function(req, res) {
       dbCollection.countDocuments({username: userData.username}, { limit: 1 }, (err,result)=>{
         if(err) throw err;
         if(result){
-          res.json({"error":"Username already taken"});
+          res.json(false);
           db.close();
           return resolve();
         }else{
+
           // register user to db
           dbCollection.insertOne(userData, (err,result)=>{
             if(err) throw err;
-            res.json({"response":"user inserted"});
+            res.send(true);
+            console.log("user added");
             db.close();
             return resolve();
           })
         }
       });
     })
+    reject()
   })
 }
