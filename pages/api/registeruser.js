@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 
 const MongoURL = "mongodb://localhost:27017";
 
-export default function(req, res) {
+export default function handler(req, res){
   return new Promise((resolve,reject)=>{
     if(req.method !== "POST") reject("invalid method");
 
@@ -40,7 +40,6 @@ export default function(req, res) {
           db.close();
           return resolve();
         }else{
-
           // register user to db
           dbCollection.insertOne(userData, (err,result)=>{
             if(err) throw err;
@@ -50,8 +49,7 @@ export default function(req, res) {
             return resolve();
           })
         }
-      });
+      })
     })
-    reject()
   })
 }

@@ -4,9 +4,25 @@ const login = () => {
     // error message
     const [error, setError] = useState("");
 
-    const authUserSubmit = (event)=>{
+    const authUserSubmit = async (event)=>{
         event.preventDefault();
-    }
+        // user entered data
+        const data = {
+            email: event.target.email.value.toLowerCase(),
+            password: event.target.password.value
+        };
+
+        const res = await fetch("/api/authuser", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        });
+
+        const result = await res.json()
+        console.log(result);
+    };
 
     return (
         <div>
@@ -17,9 +33,9 @@ const login = () => {
 
                     <input
                     className="authUsername"
-                    name="user"
+                    name="email"
                     type="text"
-                    placeholder="Email or username"/>
+                    placeholder="Email"/>
                     <input
                     className="authPassword"
                     name="password"
