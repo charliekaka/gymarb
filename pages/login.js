@@ -20,7 +20,7 @@ const login = () => {
             body: JSON.stringify(data),
         });
         const result =  res.json();
-        console.log(result);
+        result.then(sucessLogin=>console.log("bbb",sucessLogin))
     };
 
     return (
