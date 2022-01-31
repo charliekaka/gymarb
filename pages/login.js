@@ -8,7 +8,7 @@ const login = () => {
         event.preventDefault();
         // user entered data
         const data = {
-            email: event.target.email.value.toLowerCase(),
+            username: event.target.username.value.toLowerCase(),
             password: event.target.password.value
         };
 
@@ -19,8 +19,7 @@ const login = () => {
             },
             body: JSON.stringify(data),
         });
-
-        const result = await res.json()
+        const result =  res.json();
         console.log(result);
     };
 
@@ -33,9 +32,9 @@ const login = () => {
 
                     <input
                     className="authUsername"
-                    name="email"
+                    name="username"
                     type="text"
-                    placeholder="Email"/>
+                    placeholder="username"/>
                     <input
                     className="authPassword"
                     name="password"
