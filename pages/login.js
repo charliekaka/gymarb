@@ -11,16 +11,18 @@ const login = () => {
             username: event.target.username.value.toLowerCase(),
             password: event.target.password.value
         };
-
-        const res = await fetch("/api/authuser", {
+        // post data to api endpoint
+        const postData = await fetch("/api/authuser", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
             },
             body: JSON.stringify(data),
         });
-        const result =  res.json();
-        result.then(sucessLogin=>console.log("bbb",sucessLogin))
+        const apiResponse =  postData.json();
+        apiResponse.then(result=>{
+            console.log(result);
+        })
     };
 
     return (

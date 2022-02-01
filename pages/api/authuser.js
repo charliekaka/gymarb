@@ -1,5 +1,6 @@
 const MongoClient = require("mongodb").MongoClient;
 const bcrypt = require("bcrypt");
+const { authToken } = require("../../helpers/authToken")
 
 const MongoURL = "mongodb://localhost:27017";
 
@@ -40,6 +41,7 @@ export default function handler(req,res){
                     // compare entered pwd to hash
                     if(bcrypt.compareSync(user.password, result.password)){
                         console.log("log in");
+                        console.log(authToken());
                         res.send(true);
                         resolve();
                         db.close();
