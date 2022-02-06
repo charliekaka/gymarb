@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState } from "react";
 
 const login = () => {
     // error message
@@ -20,8 +20,8 @@ const login = () => {
             body: JSON.stringify(data),
         });
         const apiResponse =  postData.json();
-        apiResponse.then(result=>{
-            console.log(result);
+        apiResponse.then(token=>{
+            console.log(token);
         })
     };
 

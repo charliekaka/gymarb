@@ -1,6 +1,8 @@
+require("dotenv").config()
+
 const MongoClient = require("mongodb").MongoClient;
 const bcrypt = require("bcrypt");
-const { authToken } = require("../../helpers/authToken")
+const jwt = require("jsonwebtoken");
 
 const MongoURL = "mongodb://localhost:27017";
 
@@ -40,9 +42,13 @@ export default function handler(req,res){
                 }else{
                     // compare entered pwd to hash
                     if(bcrypt.compareSync(user.password, result.password)){
-                        console.log("log in");
-                        console.log(authToken());
-                        res.send(true);
+                        // object passed to jwt
+                        const jwtUser = {name:user.username}
+                        // create access token
+                        // token will be stored by client
+                        const accessToken = jwt.sign(jwtUser, process.env.ACCESS_TOKEN_SECRET);
+
+                        res.setHeader("")
                         resolve();
                         db.close();
                         return;
