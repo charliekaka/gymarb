@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useRouter } from "next/router";
 
 const login = () => {
+    const router = useRouter();
     // error message
     const [error, setError] = useState("");
 
@@ -20,8 +22,23 @@ const login = () => {
             body: JSON.stringify(data),
         });
         const apiResponse =  postData.json();
-        apiResponse.then(token=>{
-            console.log(token);
+        apiResponse.then(res=>{
+
+            console.log("hellooo", res);
+
+            // // if cookie is returned login is successful
+            // if(res.cookie){
+            //     // will makes httponly later
+            //     // vulnerable to xxs
+            //     cookie.set("userToken", res.cookie, {
+            //         path:"/",
+            //         expires:30 // days
+            //     })
+            //     // return user to homepage
+            //     router.push("/");
+            // }else{
+            //     return setError("username or password incorrect")
+            // }
         })
     };
 

@@ -2,7 +2,8 @@ require("dotenv").config()
 
 const MongoClient = require("mongodb").MongoClient;
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+const { sign } = require("jsonwebtoken");
+const { serialize } = require("cookie");
 
 const MongoURL = "mongodb://localhost:27017";
 
@@ -35,7 +36,7 @@ export default function handler(req,res){
                 }
                 // if no username is found
                 if(result === null){
-                    res.send(false)
+                    res.status(401).json({msg:"wrong username or password"})
                     resolve();
                     db.close();
                     return;
@@ -43,17 +44,30 @@ export default function handler(req,res){
                     // compare entered pwd to hash
                     if(bcrypt.compareSync(user.password, result.password)){
                         // object passed to jwt
-                        const jwtUser = {name:user.username}
+                        const jwtUser = result
                         // create access token
-                        // token will be stored by client
-                        const accessToken = jwt.sign(jwtUser, process.env.ACCESS_TOKEN_SECRET);
-
-                        res.setHeader("")
+                        const accessToken = sign(
+                            {
+                                exp: Math.floor(Date.now() / 1000 + 60*60*24*30), //30days
+                                user:jwtUser
+                            },
+                            process.env.ACCESS_TOKEN_SECRET
+                        );
+                        const serialized = serialize("userToken", accessToken, {
+                            httpOnly: true,
+                            // true if production
+                            secure: process.env.NODE_ENV !=="development",
+                            sameSite:"strict",
+                            maxAge:60*60*24*30, //30days
+                            path:"/"
+                        })
+                        res.setHeader("Set-Cookie", serialized);
+                        res.status(200).json({msg:"success"});
                         resolve();
                         db.close();
                         return;
                     }else{
-                        res.send(false);
+                        res.status(401).json({msg:"wrong username or password"})
                         resolve();
                         db.close();
                         return;
