@@ -44,7 +44,10 @@ export default function handler(req,res){
                     // compare entered pwd to hash
                     if(bcrypt.compareSync(user.password, result.password)){
                         // object passed to jwt
-                        const jwtUser = result
+                        const jwtUser = result;
+                        // removes unwanted stuff from obj
+                        delete jwtUser.password;
+                        delete jwtUser._id;
                         // create access token
                         const accessToken = sign(
                             {
@@ -53,7 +56,7 @@ export default function handler(req,res){
                             },
                             process.env.ACCESS_TOKEN_SECRET
                         );
-                        const serialized = serialize("userToken", accessToken, {
+                        const cookie = serialize("userToken", accessToken, {
                             httpOnly: true,
                             // true if production
                             secure: process.env.NODE_ENV !=="development",
@@ -61,7 +64,7 @@ export default function handler(req,res){
                             maxAge:60*60*24*30, //30days
                             path:"/"
                         })
-                        res.setHeader("Set-Cookie", serialized);
+                        res.setHeader("Set-Cookie", cookie);
                         res.status(200).json({msg:"success"});
                         resolve();
                         db.close();
