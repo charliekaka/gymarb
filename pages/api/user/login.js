@@ -56,6 +56,7 @@ export default function handler(req,res){
                             },
                             process.env.ACCESS_TOKEN_SECRET
                         );
+                        // create cookie
                         const cookie = serialize("userToken", accessToken, {
                             httpOnly: true,
                             // true if production
@@ -64,6 +65,7 @@ export default function handler(req,res){
                             maxAge:60*60*24*30, //30days
                             path:"/"
                         })
+                        // send cookie header
                         res.setHeader("Set-Cookie", cookie);
                         res.status(200).json({msg:"success"});
                         resolve();

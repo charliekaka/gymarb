@@ -1,37 +1,65 @@
+import { useRouter } from "next/router";
+import { getCookie } from "./api/user/verifyJwt";
+
 export default function Home(props) {
-  return (
-    <main>
-        <>aa</>
-      <header>
-        <div>
+  // init next router
+  const router = useRouter()
+  // get username from cookie
+  const {username} = props;
+
+  // show options to register or log in if user is not logged in
+  function checkIfLoggedIn(username){
+    if(username){
+      return(
+        <>
+          <p>
+          Welcome {username}!
+          </p>
+          <button onClick={()=>{
+            // log out user
+            fetch("/api/user/logout")
+            .then(()=>{
+              // rerender page after logout
+              router.push("/")
+            })
+          }}>
+            Log out
+          </button>
+        </>
+      )
+    }else{
+      return(
+        <>
           <a href="/register">
-            Register
+          Register
           </a>
           <a href="/login">
             Log in
           </a>
+        </>
+      )
+    }
+  }
+
+  return (
+    <main>
+      <header>
+        <div>
+          {checkIfLoggedIn(username)}
         </div>
       </header>
     </main>
   )
 }
 
-export async function getServerSideProps(ctx) {
-  const { verify } = require("jsonwebtoken");
-  
-  const token = ctx.req.cookies.userToken;
-
-  if(token){
-    const userObject;
-    try{
-      userObject = verify(token, process.env.ACCESS_TOKEN_SECRET)
-    }catch(e){
-      console.error(e)
-    }
+// get user data
+export async function getServerSideProps(context) {
+  const cookie = getCookie(context)
+  if(cookie){
     return {
-      props: {userObject}
+      // return user object to react props
+      props: cookie.user
     }
   }
-
   return{props:{}}
 }

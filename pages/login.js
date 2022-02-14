@@ -14,7 +14,7 @@ const login = () => {
             password: event.target.password.value
         };
         // post data to api endpoint
-        const postData = await fetch("/api/authuser", {
+        const postData = await fetch("/api/user/login", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -22,23 +22,15 @@ const login = () => {
             body: JSON.stringify(data),
         });
         const apiResponse =  postData.json();
+        // get api response
         apiResponse.then(res=>{
-
-            console.log("hellooo", res);
-
-            // // if cookie is returned login is successful
-            // if(res.cookie){
-            //     // will makes httponly later
-            //     // vulnerable to xxs
-            //     cookie.set("userToken", res.cookie, {
-            //         path:"/",
-            //         expires:30 // days
-            //     })
-            //     // return user to homepage
-            //     router.push("/");
-            // }else{
-            //     return setError("username or password incorrect")
-            // }
+            if(res.msg === "success"){
+                // go to homepage if successfull login
+                router.push("/");
+            }else{
+                // on failed login
+                setError("Login failed");
+            }
         })
     };
 

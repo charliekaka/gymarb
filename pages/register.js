@@ -30,7 +30,7 @@ const register = () => {
     setError("");
 
     // POST to server
-    const res = await fetch("/api/registeruser", {
+    const res = await fetch("/api/user/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
