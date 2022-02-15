@@ -1,0 +1,85 @@
+$authFormBackgroundColor: #e4e4e4;
+$authSubmitBtn:#87cefa;
+$authSubmitBtnText: #161616;
+
+// change color on click and hover
+@mixin interactiveBtns($color){
+    &:hover{
+        background-color: darken($color: $color, $amount: 10);
+    }
+    &:active{
+        background-color: darken($color: $color, $amount: 25);
+    }
+}
+
+// main container
+.authFormContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+
+    // main form
+    .authForm{
+        box-shadow: 1px 0 10px 6px #0000004d;
+        width: 35vw;
+        padding: 40px;
+        background-color: $authFormBackgroundColor;
+
+        // heading text
+        .authHeading{
+            color:#0c2433;
+            text-align: center;
+        }
+
+        .authWrongPath{
+            margin-top: 10px;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        // form input fields
+        .authEmail, .authUsername, .authPassword{
+            width: 100%;
+            box-sizing: border-box;
+            margin-top: 20px;
+            outline: none;
+            border: 1px groove black;
+            padding: 10px;
+            line-height: 2;
+            font-size: 16px;
+        }
+        // submit btn
+        .authSumbit{
+            @include interactiveBtns($authSubmitBtn);
+            color: $authSubmitBtnText;
+            background-color: $authSubmitBtn;
+            font-size: 21px;
+            width: 100%;
+            outline: none;
+            border: none;
+            padding: 15px;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+    }
+}
+
+.responseMessage{
+    color:rgb(255, 88, 88)
+}
+
+.backArrowSvg{
+    @include interactiveBtns(#fff);
+    position: absolute;
+    margin:32px;
+    width:90px;
+    height:90px;
+}
+
+@media (min-width: 768px){
+    .authForm{
+        background-color: #161616;
+    }
+}

@@ -36,11 +36,14 @@ const login = () => {
 
     return (
         <div>
+            <a href="/">
+                <img src="/backarrow.svg" className="backArrowSvg"/>
+            </a>
             <div className="authFormContainer">
                 <form 
                 className="authForm"
                 onSubmit={authUserSubmit}>
-
+                    <h1 className="authHeading">Log in</h1>
                     <input
                     className="authUsername"
                     name="username"
@@ -55,12 +58,34 @@ const login = () => {
                     className="authSumbit"
                     type="submit"
                     value="Sign in" />
-
+                    <div className="authWrongPath">
+                        <p>Don´t have an account? <a href="/register">Create account</a></p>
+                    </div>
                 </form>
                 <h3 className="responseMessage">{error}</h3>
             </div>
         </div>
     )
+}
+
+// redirect user if already logged in
+export async function getServerSideProps(ctx){
+    try{
+        const {cookies} = ctx.req;
+        // check if user has auth cookie
+        if(cookies.userToken){
+            return{
+                // redirect user to homepage
+                redirect:{
+                    destination:"/",
+                    permament:false
+                }
+            }
+        }
+    }catch(e){
+        console.error(e)
+    }
+    return{props:{}}
 }
 
 export default login

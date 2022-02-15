@@ -51,11 +51,14 @@ const register = () => {
 
     return (
         <div>
+          <a href="/">
+            <img src="/backarrow.svg" className="backArrowSvg"/>
+          </a>
             <div className="authFormContainer">
                 <form 
                 className="authForm"
                 onSubmit={registerUserSubmit}>
-
+                    <h1 className="authHeading">Sign up!</h1>
                     <input
                     className="authEmail"
                     name="email"
@@ -76,11 +79,34 @@ const register = () => {
                     type="submit"
                     value="Register" />
 
+                    <div className="authWrongPath">
+                      <p>Already registered? <a href="/login">Log in</a></p>
+                    </div>
                 </form>
                 <h3 className="responseMessage">{error}</h3>
             </div>
         </div>
     )
+}
+
+// redirect user if already logged in
+export async function getServerSideProps(ctx){
+  try{
+      const {cookies} = ctx.req;
+      // check if user has auth cookie
+      if(cookies.userToken){
+          return{
+              // redirect user to homepage
+              redirect:{
+                  destination:"/",
+                  permament:false
+              }
+          }
+      }
+  }catch(e){
+      console.error(e)
+  }
+  return{props:{}}
 }
 
 export default register

@@ -1,0 +1,48 @@
+// change color on click and hover
+@mixin interactiveBtns($color){
+    &:hover{
+        background-color: darken($color: $color, $amount: 10);
+    }
+    &:active{
+        background-color: darken($color: $color, $amount: 25);
+    }
+}
+
+// color variables
+$registerBtnColor: #87cefa;
+$loginBtnColor: #f5f5f5;
+$authBtnTextColor: #000000;
+$headerBackgroundColor: #f5f5f5;
+
+header{
+    display: block;
+    margin-top: 5px;
+    background-color: $headerBackgroundColor;
+
+    .authBtnContainer{
+        display: flex;
+        justify-content: right;
+        margin-right:4%;
+
+        .loginBtn, .registerBtn{
+            color:$authBtnTextColor;
+            border: none;
+            padding: 10px 15px;
+            margin-left: 4px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 20px;
+          }
+
+        .registerBtn{
+            background-color: $registerBtnColor;
+            @include interactiveBtns($registerBtnColor)
+        }
+
+        .loginBtn{
+            background-color: $loginBtnColor;
+            @include interactiveBtns($loginBtnColor)
+        }
+    }
+}

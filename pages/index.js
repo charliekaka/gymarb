@@ -7,8 +7,8 @@ export default function Home(props) {
   // get username from cookie
   const {username} = props;
 
-  // show options to register or log in if user is not logged in
   function checkIfLoggedIn(username){
+    // render if user is logged in
     if(username){
       return(
         <>
@@ -28,15 +28,16 @@ export default function Home(props) {
         </>
       )
     }else{
+      // render if user is not logged in
       return(
-        <>
-          <a href="/register">
-          Register
-          </a>
-          <a href="/login">
+        <div className="authBtnContainer">
+          <a href="/login" className="loginBtn">
             Log in
           </a>
-        </>
+          <a href="/register" className="registerBtn">
+          Register
+          </a>
+        </div>
       )
     }
   }
