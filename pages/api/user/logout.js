@@ -1,6 +1,6 @@
 const { serialize } = require("cookie");
 
-export default async (req,res)=>{
+export default async function handler(req,res){
     // remove cookies from request header
     res.setHeader("Set-Cookie", [
       serialize("userToken", "", {
@@ -11,5 +11,3 @@ export default async (req,res)=>{
     ]);
     res.json({msg:"success"})
   }
-
-  

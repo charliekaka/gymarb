@@ -10,8 +10,8 @@ const login = () => {
         event.preventDefault();
         // user entered data
         const data = {
-            username: event.target.username.value.toLowerCase(),
-            password: event.target.password.value
+            username: event.target?.username?.value.toLowerCase(),
+            password: event.target?.password?.value
         };
         // post data to api endpoint
         const postData = await fetch("/api/user/login", {

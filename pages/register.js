@@ -11,9 +11,9 @@ const register = () => {
     event.preventDefault();
     // user entered data
     const data = {
-      email: event.target.email.value.toLowerCase(),
-      username: event.target.username.value.toLowerCase(),
-      password: event.target.password.value
+      email: event.target?.email?.value.toLowerCase(),
+      username: event.target?.username?.value.toLowerCase(),
+      password: event.target?.password?.value
     };
 
     // check if a username is entered

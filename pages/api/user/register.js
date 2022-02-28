@@ -5,13 +5,13 @@ const MongoURL = "mongodb://localhost:27017";
 
 export default function handler(req, res){
   return new Promise((resolve,reject)=>{
-    if(req.method !== "POST") reject("invalid method");
+    if(req.method !== "POST") reject("invalid method / endpoint");
 
     const d = new Date();
     // adds 0 in front of one digit dates
     const month = d.getMonth()+1 <= 9 ? `0${d.getMonth()+1}` : d.getMonth()+1;
     const date = d.getDate() <= 9 ? `0${d.getDate()}` : d.getDate();
-
+``
     // stores date as YYYY-MM-DD
     const timeOfRegister = `${d.getFullYear()}-${month}-${date}`;
 
