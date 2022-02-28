@@ -1,3 +1,9 @@
+@mixin responsiveBox {
+    @media (max-width:900px) {
+        width: 90vw;
+    }
+}
+
 $authFormBackgroundColor: #e4e4e4;
 $authSubmitBtn:#87cefa;
 $authSubmitBtnText: #161616;
@@ -22,10 +28,12 @@ $authSubmitBtnText: #161616;
 
     // main form
     .authForm{
+        @include responsiveBox();
         box-shadow: 1px 0 10px 6px #0000004d;
         width: 35vw;
         padding: 40px;
         background-color: $authFormBackgroundColor;
+
 
         // heading text
         .authHeading{
@@ -74,12 +82,6 @@ $authSubmitBtnText: #161616;
     @include interactiveBtns(#fff);
     position: absolute;
     margin:32px;
-    width:90px;
-    height:90px;
-}
-
-@media (min-width: 768px){
-    .authForm{
-        background-color: #161616;
-    }
+    width:80px;
+    height:80px;
 }

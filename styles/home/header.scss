@@ -19,10 +19,9 @@ header{
     margin-top: 5px;
     background-color: $headerBackgroundColor;
 
-    .authBtnContainer{
+    .headerContentContainer{
         display: flex;
         justify-content: right;
-        margin-right:4%;
 
         .loginBtn, .registerBtn{
             color:$authBtnTextColor;

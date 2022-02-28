@@ -7,8 +7,8 @@ export default function Home(props) {
   // get username from cookie
   const {username} = props;
 
+  // render specified content if user is logged im
   function checkIfLoggedIn(username){
-    // render if user is logged in
     if(username){
       return(
         <>
@@ -30,25 +30,31 @@ export default function Home(props) {
     }else{
       // render if user is not logged in
       return(
-        <div className="authBtnContainer">
+        <>
           <a href="/login" className="loginBtn">
             Log in
           </a>
           <a href="/register" className="registerBtn">
           Register
           </a>
-        </div>
+        </>
       )
     }
   }
 
+  // main render
   return (
-    <main>
-      <header>
-        <div>
-          {checkIfLoggedIn(username)}
-        </div>
-      </header>
+    <main className="app">
+      <div className="appContainer">
+        <header>
+          <div className="headerContentContainer">
+            {checkIfLoggedIn(username)}
+          </div>
+        </header>
+        <p>
+          a
+        </p>
+      </div>
     </main>
   )
 }
