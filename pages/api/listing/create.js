@@ -23,7 +23,7 @@ export default async function handler(req,res){
             // root db
             const currentDB = db.db("gymarb");
             // specifies user collection
-            const dbCollection = currentDB.collection("listing");
+            const dbCollection = currentDB.collection("listings");
             
             dbCollection.insertOne(listing,(err, result)=>{
                 if(err){
@@ -31,6 +31,7 @@ export default async function handler(req,res){
                     res.status(500);
                     return;
                 }
+                res.status(200).json({msg:"success"})
                 return resolve()
             })
         })

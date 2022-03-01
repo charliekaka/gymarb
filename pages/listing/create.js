@@ -1,8 +1,10 @@
-import { getCookie } from "./api/user/verifyJwt";
+import { getCookie } from "../api/user/verifyJwt";
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 const createlisting = (props) => {
     const {username} = props;
+    const router = useRouter();
     const [error, setError] = useState("");
 
     // on submit listing
@@ -21,18 +23,21 @@ const createlisting = (props) => {
                 return setError(`Enter a valid ${key}`);
             }
         }
-        const a = await fetch("/api/listing/create", {
+
+        // make req to create listing
+        const apiPromise = await fetch("/api/listing/create", {
             method:"POST",
             headers:{
                 "Content-Type":"application/json"
             },
             body:JSON.stringify(data)
         })
-        const b = a.json()
-        b.then(r=>{
-            console.log("wedidit",r);
+        apiPromise.json().then(r=>{
+            // reroute the user
+            if(r?.msg === "success"){
+                router.push("/");
+            }
         })
-
     }
 
     return(

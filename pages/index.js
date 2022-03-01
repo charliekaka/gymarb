@@ -1,11 +1,8 @@
-import { useRouter } from "next/router";
 import { getCookie } from "./api/user/verifyJwt";
+import { getListings } from "./api/listing/fetchListings";
 
 export default function Home(props) {
-  // init next router
-  const router = useRouter()
-  // get username from cookie
-  const {username} = props;
+  const {username} = props
 
   // render specified content if user is logged im
   function checkIfLoggedIn(username){
@@ -51,22 +48,26 @@ export default function Home(props) {
             {checkIfLoggedIn(username)}
           </div>
         </header>
-        <p>
-          a
-        </p>
+        <div>
+          
+        </div>
       </div>
     </main>
   )
 }
 
-// get user data
+// get data to be rendered
 export async function getServerSideProps(context) {
-  const cookie = getCookie(context)
-  if(cookie){
-    return {
-      // return user object to react props
-      props: cookie.user
-    }
-  }
-  return{props:{}}
+  // get user data
+  const cookie = getCookie(context);
+  const username = cookie?.user?.username || null;
+  // get listings
+  const rawListings = await getListings();
+  // props only accepts json
+  const listings = JSON.stringify(rawListings);
+  // return props to client
+  return{props:{
+    username:username,
+    list:JSON.parse(listings)
+  }}
 }
