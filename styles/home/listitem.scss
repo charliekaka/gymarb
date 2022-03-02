@@ -1,0 +1,57 @@
+.listingItemContainer{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    .listingItem{
+        display: flex;
+        flex-direction: row;
+        overflow: hidden;
+        width: 400px;
+        height: 100px;
+        border:1px solid #696969;
+        margin: 10px;
+
+        .itemImageContainer{
+            width: 100px;
+            border-right: 1px solid #696969;
+
+            .itemImage{
+                width: 100%;
+                height: 100%;
+            }
+        }
+
+        .listingTextContainer{
+            margin-left: 15px;
+            width: 300px;
+            display: grid;
+            grid-template-areas: 
+                "title date"
+                "price user";
+                
+            .itemTitle{
+                grid-area: title;
+            }
+
+            .itemDate{
+                grid-area: date;
+                text-align: right;
+                margin-top: 0px;
+                color:#696969;
+            }
+            
+            .itemPrice{
+                grid-area: price;
+            }
+
+            .itemUser{
+                grid-area: user;
+                text-align: right;
+                color:#696969;
+            }
+        }
+
+    }
+}

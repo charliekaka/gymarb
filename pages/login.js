@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 const login = () => {
     const router = useRouter();
@@ -37,7 +38,7 @@ const login = () => {
     return (
         <div>
             <a href="/">
-                <img src="/backarrow.svg" className="backArrowSvg"/>
+                <Image src="/backarrow.svg" className="backArrowSvg" width={70} height={70}/>
             </a>
             <div className="authFormContainer">
                 <form 
