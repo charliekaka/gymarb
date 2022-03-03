@@ -1,6 +1,7 @@
 import { getCookie } from "../api/user/verifyJwt";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import styles from "./create.module.scss";
 
 const createlisting = (props) => {
     const {username} = props;
@@ -41,21 +42,23 @@ const createlisting = (props) => {
     }
 
     return(
-        <div>
-            <form onSubmit={createListingSubmit}>
-                <label htmlFor="user" >Publish as</label>
-                <input placeholder={username} name="user" id="user" disabled />
-                <label htmlFor="title" >Title</label>
-                <input name="title" id="title" />
-                <label htmlFor="description" >Description</label>
-                <input name="description" id="description" />
-                <label htmlFor="price" >Pricing</label>
-                <input name="price" id="price" type="number"/>
-                <label htmlFor="image" >Image</label>
-                <input name="image" id="image" type="file" accept="img/png, img/jpeg"/>
-                <input name="submit" type="submit"/>
-            </form>
-            <h3>{error}</h3>
+        <div className={styles.container}>
+            <div className={styles.content}>
+                <form className={styles.form} onSubmit={createListingSubmit}>
+                    <label htmlFor="user" >Publish as </label>
+                    <input className={styles.user} placeholder={username} name="user" id="user" disabled />
+                    <label htmlFor="title">Title</label>
+                    <input className={styles.title} name="title" id="title" />
+                    <label htmlFor="description" >Description</label>
+                    <textarea className={styles.description} name="description" id="description" />
+                    <label htmlFor="price" >Pricing</label>
+                    <input className={styles.price} name="price" id="price" type="number"/>
+                    <label htmlFor="image" >Image</label>
+                    <input className={styles.file} name="image" id="image" type="file" accept="img/png, img/jpeg"/>
+                    <input className={styles.send} name="submit" type="submit"/>
+                </form>
+                <h3 className={styles.error}>{error}</h3>
+            </div>
         </div>
     )
 }

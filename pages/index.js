@@ -1,7 +1,6 @@
 import { getCookie } from "./api/user/verifyJwt";
 import { getListings } from "./api/listing/fetchListings";
 import { useRouter } from "next/dist/client/router";
-import Image from "next/image";
 
 export default function Home(props) {
   const router = useRouter();
@@ -61,7 +60,7 @@ export default function Home(props) {
             <h3 className="itemTitle">{title}</h3>
             <p className="itemDate">{date}</p>
             <p className="itemPrice">{price}.€</p>
-            <p className="itemUser">{user}</p>
+            <p className="itemUser">{user} {(user===username)?"(you)":""}</p>
           </div>
         </div>
       )

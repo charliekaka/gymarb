@@ -1,0 +1,46 @@
+
+.container{
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    
+    .content{
+        width: 70vw;
+        border:2px solid black;
+
+        .form{
+            display: flex;
+            flex-direction: column;
+
+            label{
+                color:rgb(69, 69, 69);
+            }
+            
+            .user,.title,.description,.price,.image{
+                margin-bottom:7px;
+            }
+
+            .user{
+                
+            }
+            .title{
+                
+            }
+            .description{
+                height: 66px;
+            }
+            .price{
+                
+            }
+            .image{
+                
+            }
+            .submit{
+                
+            }
+        }
+        .error{
+            color:rgb(255, 88, 88)
+        }
+    }
+}
