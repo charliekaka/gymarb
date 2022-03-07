@@ -1,6 +1,7 @@
 import { getCookie } from "../api/user/verifyJwt";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import Image from "next/image";
 import styles from "./create.module.scss";
 
 const createlisting = (props) => {
@@ -43,7 +44,11 @@ const createlisting = (props) => {
 
     return(
         <div className={styles.container}>
+            <a href="/" className={styles.back}>
+                <Image src="/backarrow.svg" width={70} height={70}/>
+            </a>
             <div className={styles.content}>
+                <h1>Create a listing!</h1>
                 <form className={styles.form} onSubmit={createListingSubmit}>
                     <label htmlFor="user" >Publish as </label>
                     <input className={styles.user} placeholder={username} name="user" id="user" disabled />
@@ -52,10 +57,10 @@ const createlisting = (props) => {
                     <label htmlFor="description" >Description</label>
                     <textarea className={styles.description} name="description" id="description" />
                     <label htmlFor="price" >Pricing</label>
-                    <input className={styles.price} name="price" id="price" type="number"/>
+                    <input className={styles.price} name="price" id="price" placeholder="€" type="number"/>
                     <label htmlFor="image" >Image</label>
-                    <input className={styles.file} name="image" id="image" type="file" accept="img/png, img/jpeg"/>
-                    <input className={styles.send} name="submit" type="submit"/>
+                    <input className={styles.image} name="image" id="image" type="file" />
+                    <input className={styles.send} name="submit" type="submit" value="Upload" />
                 </form>
                 <h3 className={styles.error}>{error}</h3>
             </div>

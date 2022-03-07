@@ -10,10 +10,7 @@ export default function Home(props) {
     if(username){
       return(
         <>
-          <p>
-          Welcome {username}!
-          </p>
-          <button onClick={()=>router.push("/listing/create")}>New</button>
+          {/* <button onClick={()=>router.push("/listing/create")}>New</button>
           <button onClick={()=>{
             // log out user
             fetch("/api/user/logout").then(()=>{
@@ -22,7 +19,28 @@ export default function Home(props) {
             })
           }}>
             Log out
-          </button>
+          </button> */}
+
+            <div className="dropdownContainer">
+              <div className="profileRefContainer">
+                <img
+                src="/profileLink.svg" 
+                alt="profile link" 
+                width="64"
+                height="64">
+                </img>
+              </div>
+              <div className="dropdown-content">
+                <a>{username}</a>
+                <a onClick={()=>{
+                  fetch("api/user/logout").then(()=>{
+                    router.push("/")
+                  })
+                }}>
+                  Log out
+                </a>
+              </div>
+            </div>
         </>
       )
     }else{
@@ -51,12 +69,11 @@ export default function Home(props) {
       const {user, title, date, price} = list[i]
 
       listings.push(
-        <div key={i} className="listingItem">
+        <div key={i} className="listingItem" >
           <div className="itemImageContainer">
             <img className="itemImage" src="/emptyimage.svg" />
           </div>
           <div className="listingTextContainer">
-
             <h3 className="itemTitle">{title}</h3>
             <p className="itemDate">{date}</p>
             <p className="itemPrice">{price}.€</p>
@@ -73,8 +90,12 @@ export default function Home(props) {
     <main className="app">
       <div className="appContainer">
         <header>
-          <div className="headerContentContainer">
+            
+          {username ? <h3 className="welcomeMessage">Welcome {username}!</h3>:""}
+          <div className="headerButtonContainer">
             {checkIfLoggedIn(username)}
+          </div>
+          <div>
           </div>
         </header>
         <div className="listingItemContainer">

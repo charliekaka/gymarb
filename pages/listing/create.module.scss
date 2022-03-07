@@ -1,42 +1,82 @@
+// change color on click and hover
+@mixin interactiveBtns($color){
+    &:hover{
+        background-color: darken($color: $color, $amount: 10);
+    }
+    &:active{
+        background-color: darken($color: $color, $amount: 25);
+    }
+}
+
+$greyish: #696969;
 
 .container{
     display: flex;
     justify-content: center;
     overflow: hidden;
-    
+
+    .back{
+        @include interactiveBtns(rgb(231, 231, 231));
+        position: absolute;
+        left:0;
+        margin: 5px;
+    }
+
     .content{
         width: 70vw;
-        border:2px solid black;
+        padding: 10px;
+        margin-top: 20px;
+        border-radius: 10px;
+        overflow: hidden;
+        background-color: #fff;
+
+        h1{
+            text-align: center;
+        }
 
         .form{
             display: flex;
             flex-direction: column;
 
             label{
-                color:rgb(69, 69, 69);
+                color: $greyish;
+                font-size: 20px;
             }
             
-            .user,.title,.description,.price,.image{
-                margin-bottom:7px;
+            .user,.title,.description,.price{
+                margin-bottom:25px;
+                border: 1px dotted $greyish;
+                font-size: 20px;
             }
 
             .user{
-                
+                width: 200px;
             }
             .title{
-                
+                width: 350px;
             }
             .description{
-                height: 66px;
+                width: 650px;
+                height: 80px;
+                @media (max-width:1000px) {
+                    width: 90%;
+                }
             }
             .price{
-                
+                width: 120px;
             }
             .image{
-                
+                margin-bottom:25px;
+                margin-top: 5px;
             }
-            .submit{
-                
+            .send{
+                @include interactiveBtns(#87cefa);
+                border: none;
+                background-color: #87cefa;
+                border-radius: 10px;
+                width: 200px;
+                height:50px;
+                margin-top: 40px;
             }
         }
         .error{

@@ -1,8 +1,11 @@
 .app{
     display: flex;
     justify-content: center;
-
+    
     .appContainer{
         width: 72vw;
+        height: 100vh;
+        background-color: #fff;
+
     }
 }

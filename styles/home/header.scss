@@ -12,14 +12,54 @@
 $registerBtnColor: #87cefa;
 $loginBtnColor: #f5f5f5;
 $authBtnTextColor: #000000;
-$headerBackgroundColor: #f5f5f5;
+$headerBackgroundColor: #fff;
 
 header{
-    display: block;
-    margin-top: 5px;
+    display: flex;
     background-color: $headerBackgroundColor;
+    margin-bottom: 10px;
+    border-bottom: 10px solid #e7e7e7;
+    justify-content: space-evenly;
 
-    .headerContentContainer{
+
+    .dropdownContainer {
+        position: relative;
+        display: inline-block;
+        margin: 15px;
+        &:hover{
+            .dropdown-content{
+                display:block;
+            }
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            right:0;
+        }
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+        .dropdown-content a:hover {
+            background-color: #f1f1f1
+        }
+    }
+
+    .logoContainer{
+        border: 1px solid black;
+    }
+
+    .welcomeMessage{
+        margin-left:10px;
+    }
+
+    .headerButtonContainer{
         display: flex;
         justify-content: right;
 
@@ -32,16 +72,17 @@ header{
             text-decoration: none;
             display: inline-block;
             font-size: 20px;
-          }
-
+            }
+    
         .registerBtn{
             background-color: $registerBtnColor;
             @include interactiveBtns($registerBtnColor)
         }
-
+    
         .loginBtn{
             background-color: $loginBtnColor;
             @include interactiveBtns($loginBtnColor)
         }
     }
+
 }

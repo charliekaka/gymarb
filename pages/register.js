@@ -52,8 +52,8 @@ const register = () => {
 
     return (
         <div>
-          <a href="/">
-            <Image src="/backarrow.svg" className="backArrowSvg" width={70} height={70}/>
+          <a href="/" className="backArrowSvg">
+            <Image src="/backarrow.svg" width={70} height={70}/>
           </a>
             <div className="authFormContainer">
                 <form 

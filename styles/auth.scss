@@ -4,10 +4,6 @@
     }
 }
 
-$authFormBackgroundColor: #e4e4e4;
-$authSubmitBtn:#87cefa;
-$authSubmitBtnText: #161616;
-
 // change color on click and hover
 @mixin interactiveBtns($color){
     &:hover{
@@ -18,6 +14,11 @@ $authSubmitBtnText: #161616;
     }
 }
 
+$authFormBackgroundColor: #e4e4e4;
+$authSubmitBtn:#87cefa;
+$authSubmitBtnText: #161616;
+
+
 // main container
 .authFormContainer{
     display: flex;
@@ -25,6 +26,7 @@ $authSubmitBtnText: #161616;
     align-items: center;
     flex-direction: column;
     height: 100vh;
+    background-color: #fff;
 
     // main form
     .authForm{
@@ -79,7 +81,8 @@ $authSubmitBtnText: #161616;
 }
 
 .backArrowSvg{
-    @include interactiveBtns(#fff);
+    @include interactiveBtns(rgb(231, 231, 231));
     position: absolute;
-    margin:32px;
+    left:0;
+    margin: 5px;
 }
