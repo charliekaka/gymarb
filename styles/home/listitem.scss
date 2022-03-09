@@ -1,3 +1,6 @@
+$greyish: #696969;
+$blueish: #87cefa;
+
 .listingItemContainer{
     display: flex;
     flex-direction: row;
@@ -10,12 +13,12 @@
         overflow: hidden;
         width: 400px;
         height: 100px;
-        border:1px solid #696969;
+        border:1px solid $greyish;
         margin: 10px;
 
         .itemImageContainer{
             width: 100px;
-            border-right: 1px solid #696969;
+            border-right: 1px solid $greyish;
 
             .itemImage{
                 width: 100%;
@@ -39,7 +42,7 @@
                 grid-area: date;
                 text-align: right;
                 margin-top: 0px;
-                color:#696969;
+                color:$greyish;
                 font-size: 12px;
             }
             
@@ -50,7 +53,7 @@
             .itemUser{
                 grid-area: user;
                 text-align: right;
-                color:#696969;
+                color:$greyish;
             }
         }
     }

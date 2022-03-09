@@ -10,37 +10,28 @@ export default function Home(props) {
     if(username){
       return(
         <>
-          {/* <button onClick={()=>router.push("/listing/create")}>New</button>
-          <button onClick={()=>{
-            // log out user
-            fetch("/api/user/logout").then(()=>{
-              // rerender page after logout
-              router.push("/");
-            })
-          }}>
-            Log out
-          </button> */}
-
-            <div className="dropdownContainer">
-              <div className="profileRefContainer">
-                <img
-                src="/profileLink.svg" 
-                alt="profile link" 
-                width="64"
-                height="64">
-                </img>
-              </div>
-              <div className="dropdown-content">
-                <a>{username}</a>
-                <a onClick={()=>{
-                  fetch("api/user/logout").then(()=>{
-                    router.push("/")
-                  })
-                }}>
-                  Log out
-                </a>
-              </div>
+        <div className="headerRight">
+          <div className="dropdownContainer">
+            <div className="profileRefContainer">
+              <img
+              src="/profileLink.svg" 
+              alt="profile link" 
+              width="64"
+              height="64">
+              </img>
             </div>
+            <div className="dropdown-content">
+              <a>{username}</a>
+              <a onClick={()=>{
+                fetch("api/user/logout").then(()=>{
+                  router.push("/")
+                })
+              }}>
+                Log out
+              </a>
+            </div>
+          </div>
+        </div>
         </>
       )
     }else{
@@ -75,7 +66,7 @@ export default function Home(props) {
           </div>
           <div className="listingTextContainer">
             <h3 className="itemTitle">{title}</h3>
-            <p className="itemDate">{date}</p>
+            <p className="itemDate">{date.plain}</p>
             <p className="itemPrice">{price}.€</p>
             <p className="itemUser">{user} {(user===username)?"(you)":""}</p>
           </div>
@@ -91,7 +82,7 @@ export default function Home(props) {
       <div className="appContainer">
         <header>
             
-          {username ? <h3 className="welcomeMessage">Welcome {username}!</h3>:""}
+          {username ? <h3 className="welcomeMessage">{username}</h3>:""}
           <div className="headerButtonContainer">
             {checkIfLoggedIn(username)}
           </div>

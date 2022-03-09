@@ -15,8 +15,9 @@
 }
 
 $authFormBackgroundColor: #e4e4e4;
-$authSubmitBtn:#87cefa;
-$authSubmitBtnText: #161616;
+$blueishText: #161616;
+$greyish: #696969;
+$blueish: #87cefa;
 
 
 // main container
@@ -35,7 +36,6 @@ $authSubmitBtnText: #161616;
         width: 35vw;
         padding: 40px;
         background-color: $authFormBackgroundColor;
-
 
         // heading text
         .authHeading{
@@ -62,9 +62,9 @@ $authSubmitBtnText: #161616;
         }
         // submit btn
         .authSumbit{
-            @include interactiveBtns($authSubmitBtn);
-            color: $authSubmitBtnText;
-            background-color: $authSubmitBtn;
+            @include interactiveBtns($blueish);
+            color: $blueishText;
+            background-color: $blueish;
             font-size: 21px;
             width: 100%;
             outline: none;

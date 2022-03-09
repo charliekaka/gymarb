@@ -17,7 +17,10 @@ export default async function handler(req,res){
         const time = `${d.getFullYear()}-${month}-${date}`;
 
         // add date to object
-        listing["date"] = time
+        listing.date = {
+            raw: Date.now(),
+            plain: time
+        }
 
         // checking for empty inputs
         for(let key of Object.keys(listing)){
