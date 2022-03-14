@@ -28,12 +28,12 @@ export default function handler(req, res){
     MongoClient.connect(MongoURL, (err,db)=>{
       if(err) throw err;
       // root db
-      const currentDB = db.db("gymarb");
+      const root = db.db("gymarb");
       // specifies user collection
-      const dbCollection = currentDB.collection("users");
+      const listings = root.collection("users");
 
       // search db if username is taken
-      dbCollection.countDocuments({username: userData.username}, { limit: 1 }, (err,result)=>{
+      listings.countDocuments({username: userData.username}, { limit: 1 }, (err,result)=>{
         if(err) throw err;
         if(result){
           res.json(false);
@@ -41,10 +41,9 @@ export default function handler(req, res){
           return resolve();
         }else{
           // register user to db
-          dbCollection.insertOne(userData, (err,result)=>{
+          listings.insertOne(userData, (err,result)=>{
             if(err) throw err;
             res.send(true);
-            console.log("user added");
             db.close();
             return resolve();
           })

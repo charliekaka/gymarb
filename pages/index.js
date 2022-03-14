@@ -1,10 +1,15 @@
 import { getCookie } from "./api/user/verifyJwt";
 import { getListings } from "./api/listing/fetchListings";
 import { useRouter } from "next/dist/client/router";
+import React, { useState } from "react";
 
 export default function Home(props) {
   const router = useRouter();
   const {username, list} = props;
+
+  const [filter, selectFilter] = useState("new")
+  const [listings, renewListings] = useState(renderListings(list, filter))
+
   // render specified content if user is logged im
   function checkIfLoggedIn(username){
     if(username){
@@ -22,6 +27,11 @@ export default function Home(props) {
             </div>
             <div className="dropdown-content">
               <a>{username}</a>
+
+              <a onClick={()=>{
+                router.push("/listing/create")
+              }}>Create listing</a>
+
               <a onClick={()=>{
                 fetch("api/user/logout").then(()=>{
                   router.push("/")
@@ -29,6 +39,7 @@ export default function Home(props) {
               }}>
                 Log out
               </a>
+
             </div>
           </div>
         </div>
@@ -50,7 +61,7 @@ export default function Home(props) {
   }
 
   // handle listings
-  function renderListings(list){
+  function renderListings(list, option){
     if(!list) return;
 
     let listings = [];
@@ -73,7 +84,22 @@ export default function Home(props) {
         </div>
       )
     }
-    return listings;
+    // reverse overwrites org array
+    const recersedArray = listings.reverse()
+
+    switch (option) {
+      case "new":
+        return recersedArray
+      case "old":
+        return listings
+      case "low":
+        return
+      case "high":
+        return
+      default:
+        return listings
+    }
+
   }
 
   // main render
@@ -89,8 +115,32 @@ export default function Home(props) {
           <div>
           </div>
         </header>
+
+        <div className="secondHeader">
+          <label htmlFor="selector" className="sort-by">Sort by:</label>
+          <select id="selector" className="sort-selector">
+            <option onClick={()=>{
+              selectFilter("new")
+              renewListings(renderListings(list, filter))
+            }}>New</option>
+            <option onClick={()=>{
+              selectFilter("old")
+              renewListings(renderListings(list, filter))
+
+            }}>Old</option>
+            <option onClick={()=>{
+              selectFilter("low")
+              
+            }}>Low price</option>
+            <option onClick={()=>{
+              selectFilter("high")
+              
+            }}>High price</option>
+          </select>
+        </div>
+
         <div className="listingItemContainer">
-          {renderListings(list)}
+          {listings}
         </div>
       </div>
     </main>

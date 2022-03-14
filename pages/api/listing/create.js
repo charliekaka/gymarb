@@ -28,25 +28,33 @@ export default async function handler(req,res){
                 return resolve();
             }
         }
+
         MongoClient.connect(MongoURL,(err,db)=>{
             if(err){
                 console.log(err);
                 res.status(500);
                 return;
             }
+
             // root db
-            const currentDB = db.db("gymarb");
+            const root = db.db("gymarb");
             // specifies user collection
-            const dbCollection = currentDB.collection("listings");
-            
-            dbCollection.insertOne(listing,(err, result)=>{
-                if(err){
-                    console.log(err);
-                    res.status(500);
-                    return;
-                }
-                res.status(200).json({msg:"success"})
-                return resolve()
+            const listings = root.collection("listings");
+
+            listings.countDocuments().then(docs=>{
+                // add id to listing
+                listing.id = docs+1
+
+                // insert listing
+                listings.insertOne(listing,(err, result)=>{
+                    if(err){
+                        console.log(err);
+                        res.status(500);
+                        return;
+                    }
+                    res.status(200).json({msg:"success"})
+                    return resolve()
+                })
             })
         })
     })

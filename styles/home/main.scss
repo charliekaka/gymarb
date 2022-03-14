@@ -7,5 +7,19 @@
         height: 100vh;
         background-color: #fff;
 
+        .secondHeader{
+            display: flex;
+            align-items: center;
+            margin: 5px;
+
+            .sort-selector{
+                height: 25px;
+            }
+
+            .sort-by{
+                margin-right: 10px;
+                margin-left:20px;
+            }
+        }
     }
 }

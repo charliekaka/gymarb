@@ -24,11 +24,11 @@ export default function handler(req,res){
                 return;
             }
             // root db
-            const currentDB = db.db("gymarb");
+            const root = db.db("gymarb");
             // specifies user collection
-            const dbCollection = currentDB.collection("users");
+            const listings = root.collection("users");
             // check if username is in db
-            dbCollection.findOne({username:user.username}, (err,result)=>{
+            listings.findOne({username:user.username}, (err,result)=>{
                 if(err){
                     console.log(err);
                     res.status(500);
