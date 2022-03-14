@@ -68,20 +68,23 @@ export default function Home(props) {
 
     // format listings
     for(let i = 0; i < list.length; i++){
-      const {user, title, date, price} = list[i]
+      const {user, title, date, price, id} = list[i]
 
       listings.push(
-        <div key={i} className="listingItem" >
-          <div className="itemImageContainer">
-            <img className="itemImage" src="/emptyimage.svg" />
+        // listing redirects to endpoint of listing id
+        <a key={i} href={`listing/${id}`} className="listingLink">
+          <div className="listingItem" >
+              <div className="itemImageContainer">
+                <img className="itemImage" src="/emptyimage.svg" />
+              </div>
+              <div className="listingTextContainer">
+                <h3 className="itemTitle">{title}</h3>
+                <p className="itemDate">{date.plain}</p>
+                <p className="itemPrice">{price}.€</p>
+                <p className="itemUser">{user} {(user===username)?"(you)":""}</p>
+              </div>
           </div>
-          <div className="listingTextContainer">
-            <h3 className="itemTitle">{title}</h3>
-            <p className="itemDate">{date.plain}</p>
-            <p className="itemPrice">{price}.€</p>
-            <p className="itemUser">{user} {(user===username)?"(you)":""}</p>
-          </div>
-        </div>
+        </a>
       )
     }
     // reverse overwrites org array
@@ -89,12 +92,16 @@ export default function Home(props) {
 
     switch (option) {
       case "new":
+        console.log("new");
         return recersedArray
       case "old":
+        console.log("old");
         return listings
       case "low":
+        console.log("low");
         return
       case "high":
+        console.log("high");
         return
       default:
         return listings
@@ -106,8 +113,8 @@ export default function Home(props) {
   return (
     <main className="app">
       <div className="appContainer">
-        <header>
-            
+
+        <header>    
           {username ? <h3 className="welcomeMessage">{username}</h3>:""}
           <div className="headerButtonContainer">
             {checkIfLoggedIn(username)}

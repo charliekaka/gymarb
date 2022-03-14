@@ -1,0 +1,64 @@
+// change color on click and hover
+@mixin interactiveBtns($color){
+    &:hover{
+        background-color: darken($color: $color, $amount: 10);
+    }
+    &:active{
+        background-color: darken($color: $color, $amount: 25);
+    }
+}
+
+$greyish: #696969;
+$blueish: #87cefa;
+
+.main{
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+
+    .back{
+        @include interactiveBtns(rgb(231, 231, 231));
+        position: absolute;
+        left:0;
+        margin: 5px;
+    }
+
+    
+    .container{
+        color: $greyish;
+        background-color: #fff;
+        width: 70vw;
+        height: 95vh;
+        padding: 20px;
+        margin-top: 20px;
+        border-radius: 10px;
+        
+        .date,.descriptionContainer,.price,.user{
+            padding-top: 20px;
+        }
+        label{
+            color: black;
+            font-size: 20px;
+        }
+
+        .date{
+            font-size: 14px;
+        }
+        .title{
+            color: $blueish;
+            border-bottom: 1px solid $greyish;
+        }
+        .descriptionContainer{
+
+            .description{
+                width: 50%;
+            }
+        }
+        .price{
+
+        }
+        .user{
+
+        }
+    }
+}

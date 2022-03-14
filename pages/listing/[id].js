@@ -1,23 +1,58 @@
 import { useRouter } from "next/router";
 import { getCookie } from "../api/user/verifyJwt";
 import { getListings } from "../api/listing/fetchListings";
+import styles from "./listing.module.scss";
+import Image from "next/image";
+
 
 export default function listing(props){
-    const {list, username} = props
-
+    const {list, username} = props;
     const router = useRouter();
-    const query = router.query.id
-    
-    let listing;
 
+    // get router query
+    const routeQuery = parseInt(router.query.id)
+    
     // get listing by query
+    let item;
     for(let i = 0; i < list.length; i++){
-        if(list[i].id === query){
-            listing = list[i]
+        if(list[i].id === routeQuery){
+            item = list[i]
         }
     }
 
-    return <p>hi</p>
+    // handle invalid route
+    if(!item) return <h1><a href="/">home</a> 404 Not found :/</h1>
+
+    const {title, description, price, user} = item;
+    const date = item.date?.plain;
+
+    return(
+        <div className={styles.main}>
+            <a href="/" className={styles.back}>
+                <Image src="/backarrow.svg" width={70} height={70}/>
+            </a>
+
+            <div className={styles.container}>
+                <div className={styles.date}>
+                    <p>Published on {date} by {user}</p>
+                </div>
+                <div className={styles.title}>
+                    <h1>{title}</h1>
+                </div>
+                <div className={styles.descriptionContainer}>
+                    <label>Description</label>
+                    <p className={styles.description}>{description}</p>
+                </div>
+                <div className={styles.price}>
+                    <label>Price</label>
+                    <p>{price}€</p>
+                </div>
+                <div className={styles.user}>
+                    <p>{user}</p>
+                </div>
+            </div>
+        </div>
+    ) 
 }
 
 // get data
@@ -34,4 +69,4 @@ export async function getServerSideProps(context) {
       username:username,
       list:JSON.parse(listings)
     }}
-  }
+}
