@@ -3,6 +3,7 @@ import { getListings } from "./api/listing/fetchListings";
 import { useRouter } from "next/dist/client/router";
 import React, { useState } from "react";
 import Select from "react-select";
+import Image from "next/image";
 
 export default function Home(props) {
   const router = useRouter();
@@ -13,18 +14,45 @@ export default function Home(props) {
   // handle listings
   function renderListings(list, option="new"){
     if(!list) return;
+    
+    // sort array by option
+    switch (option) {
+      case "new":
+        // sort by newest
+        list.sort((a,b)=>{
+          return a.date.raw - b.date.raw
+        })
+        break;
+      case "old":
+        // sort by oldest
+        list.sort((a,b)=>{
+          return b.date.raw - a.date.raw
+        })
+        break;
+      case "low":
+        // sort prices by lowest
+        list.sort((a,b)=>{
+          return a.price - b.price
+        })
+        break;
+      case "high":
+        // sort prices by highest
+        list.sort((a,b)=>{
+          return b.price - a.price
+        })
+        break;
+      }
 
-    console.log(`Rendering ${option} listings...`);
-
-    let listings = [];
-
-    // format listings
-    for(let i = 0; i < list.length; i++){
-      const {user, title, date, price, id} = list[i]
-
-      listings.push(
-        // listing redirects to endpoint of listing id
-        <a key={i} href={`listing/${id}`} className="listingLink">
+      // react renderable data
+      let listingData = [];
+            
+      // format listings
+      for(let i = 0; i < list.length; i++){
+        const {user, title, date, price, id} = list[i]
+        
+        listingData.push(
+          // listing redirects to endpoint of listing id
+          <a key={i} href={`listing/${id}`} className="listingLink">
           <div className="listingItem" >
               <div className="itemImageContainer">
                 <img className="itemImage" src="/emptyimage.svg" />
@@ -39,50 +67,38 @@ export default function Home(props) {
         </a>
       )
     }
+    return listingData
+  }
 
-      switch (option) {
-        case "new":
-          return listings
-        case "old":
-          // non destructive reverse method
-          return [...listings].reverse()
-        case "low":
-          const prices = [];
-          for(let i = 0; i < listings.length; i++){
-            prices.push(list[i].price)
-          }
-          console.log(prices);
-
-          return
-        case "high":
-          console.log("high");
-          return listings
-      }
-  
-    }
-
+  // list sorting options
   const options = [
     {value: "new", label: "New"},
     {value: "old", label: "Old"},
     {value: "low", label: "Low pirce"},
     {value: "high", label: "High price"}
   ]
+   
 
-
-  // render specified content if user is logged im
+  // render specified header if user is logged im
   function checkIfLoggedIn(username){
     if(username){
       return(
         <>
         <div className="headerRight">
+          <a className="inboxSvgContainer" href="/">
+            <Image
+            src="/inbox.svg"
+            alt="inbox icon"
+            width={40}
+            height={30} />
+          </a>
           <div className="dropdownContainer">
             <div className="profileRefContainer">
-              <img
-              src="/profileLink.svg" 
-              alt="profile link" 
-              width="64"
-              height="64">
-              </img>
+              <Image
+              src="/profileLink.svg"
+              alt="profile link"
+              width={64}
+              height={64} />
             </div>
             <div className="dropdown-content">
               <a>{username}</a>

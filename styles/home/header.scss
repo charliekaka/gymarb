@@ -23,6 +23,18 @@ header{
     margin-bottom: 10px;
     border-bottom: 5px solid #e7e7e7;
 
+    .headerRight{
+        display: flex;
+        align-items: center;
+
+        .inboxSvgContainer{
+            margin-right: 25px;
+            &:hover{
+                border-bottom:2px solid $greyish;
+            }
+        }
+    }
+
     .welcomeMessage{
         color: $blueish;
         margin-left:10px;

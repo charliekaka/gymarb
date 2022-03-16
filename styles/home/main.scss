@@ -1,3 +1,9 @@
+@mixin responsiveBox {
+    @media (max-width:900px) {
+        width: 90vw;
+    }
+}
+
 $greyish: #696969;
 
 .app{
@@ -5,6 +11,7 @@ $greyish: #696969;
     justify-content: center;
     
     .appContainer{
+        @include responsiveBox();
         width: 72vw;
         height: 100vh;
         background-color: #fff;
