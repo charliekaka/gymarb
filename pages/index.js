@@ -20,13 +20,13 @@ export default function Home(props) {
       case "new":
         // sort by newest
         list.sort((a,b)=>{
-          return a.date.raw - b.date.raw
+          return b.date.raw - a.date.raw
         })
         break;
       case "old":
         // sort by oldest
         list.sort((a,b)=>{
-          return b.date.raw - a.date.raw
+          return a.date.raw - b.date.raw
         })
         break;
       case "low":
@@ -53,18 +53,18 @@ export default function Home(props) {
         listingData.push(
           // listing redirects to endpoint of listing id
           <a key={i} href={`listing/${id}`} className="listingLink">
-          <div className="listingItem" >
-              <div className="itemImageContainer">
-                <img className="itemImage" src="/emptyimage.svg" />
-              </div>
-              <div className="listingTextContainer">
-                <h3 className="itemTitle">{title}</h3>
-                <p className="itemDate">{date.plain}</p>
-                <p className="itemPrice">{price}.€</p>
-                <p className="itemUser">{user} {(user===username)?"(you)":""}</p>
-              </div>
-          </div>
-        </a>
+            <div className="listingItem" >
+                <div className="itemImageContainer">
+                  <img className="itemImage" src="/emptyimage.svg" />
+                </div>
+                <div className="listingTextContainer">
+                  <h3 className="itemTitle">{title}</h3>
+                  <p className="itemDate">{date.plain}</p>
+                  <p className="itemPrice">{price}.€</p>
+                  <p className="itemUser">{user} {(user===username)?"(you)":""}</p>
+                </div>
+            </div>
+          </a>
       )
     }
     return listingData
@@ -85,7 +85,7 @@ export default function Home(props) {
       return(
         <>
         <div className="headerRight">
-          <a className="inboxSvgContainer" href="/">
+          <a className="inboxSvgContainer" href="/messages">
             <Image
             src="/inbox.svg"
             alt="inbox icon"

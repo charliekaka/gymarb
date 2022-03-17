@@ -1,0 +1,51 @@
+// change color on click and hover
+@mixin interactiveBtns($color){
+    &:hover{
+        background-color: darken($color: $color, $amount: 10);
+    }
+    &:active{
+        background-color: darken($color: $color, $amount: 25);
+    }
+}
+@mixin responsiveBox {
+    @media (max-width:900px) {
+        width: 100vw;
+    }
+}
+
+$greyish: #696969;
+$blueish: #87cefa;
+
+.container{
+    display:flex;
+    justify-content: center;
+    overflow:none;
+
+    .backArrowSvg{
+        @include interactiveBtns(rgb(231, 231, 231));
+        @media (max-width:900px) {
+            display:none;
+        }
+        position: absolute;
+        left:0;
+        margin: 5px;
+    }
+
+    .contentContainer{
+        @include responsiveBox();
+        display:flex;
+        background-color: #fff;
+        margin-top: 15px;
+        height: 95vh;
+        width: 60vw;
+
+        .contacts{
+            width:25%;
+            border-right: 1px solid $greyish;
+        }
+        .content{
+            padding:5px;
+        }
+    }
+}
+
