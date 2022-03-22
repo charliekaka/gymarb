@@ -31,7 +31,10 @@ export default function messages(props){
             body: JSON.stringify(data),
         });
         const response = await request.json()
-        console.log(response);
+        
+        if(response.err){
+            setError(response.err)
+        }
 
     }
 

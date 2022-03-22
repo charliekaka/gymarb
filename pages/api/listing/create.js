@@ -41,6 +41,7 @@ export default async function handler(req,res){
             // specifies user collection
             const listings = root.collection("listings");
 
+            // get n of listings for id
             listings.countDocuments().then(docs=>{
                 // add id to listing
                 listing.id = docs+1
