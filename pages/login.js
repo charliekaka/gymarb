@@ -22,7 +22,7 @@ const login = () => {
             },
             body: JSON.stringify(data),
         });
-        const apiResponse =  postData.json();
+        const apiResponse = postData.json();
         // get api response
         apiResponse.then(res=>{
             if(res.msg === "success"){

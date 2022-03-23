@@ -3,14 +3,14 @@ import Image from "next/image";
 import { useState } from "react"
 import { getCookie } from "../api/user/verifyJwt";
 
-export default function messages(props){
-
+const messages = (props)=>{
     const [error, setError] = useState("")
-
+    
     const {username} = props;
-
+    
     const sendMessage = async e=>{
         e.preventDefault();
+
         const data = {
             author: username,
             recipient: e?.target?.recipient?.value,
@@ -30,11 +30,12 @@ export default function messages(props){
             },
             body: JSON.stringify(data),
         });
-        const response = await request.json()
+        request.json().then(re=>{
+            console.log("yep", re);
+        }).catch(er=>{
+            console.log("nep", er);
+        })
         
-        if(response.err){
-            setError(response.err)
-        }
 
     }
 
@@ -93,3 +94,4 @@ export async function getServerSideProps(ctx){
 }
 
 
+export default messages
