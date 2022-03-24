@@ -2,14 +2,17 @@ import styles from "./inbox.module.scss";
 import Image from "next/image";
 import { useState } from "react"
 import { getCookie } from "../api/user/verifyJwt";
+import { useRouter } from "next/router";
 
 const messages = (props)=>{
+    const router = useRouter()
     const [error, setError] = useState("")
     
     const {username} = props;
     
     const sendMessage = async e=>{
         e.preventDefault();
+        setError("")
 
         const data = {
             author: username,
@@ -17,26 +20,26 @@ const messages = (props)=>{
             content: e?.target?.message?.value
         }
         // check for empty inputs
-        for(let el of Object.values(data)){
-            if(!el){
-                return setError("Fill all fields")
+        for (let key of Object.keys(data)){
+            if(!data[key]){
+                return setError(`Enter a valid ${key}`);
             }
         }
+
         // post data to api endpoint
-        const request = await fetch("/api/chat/send", {
+        const apiRequest = await fetch("/api/chat/send", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(data),
         });
-        request.json().then(re=>{
-            console.log("yep", re);
-        }).catch(er=>{
-            console.log("nep", er);
+
+        apiRequest.json().then(result =>{
+            if(result.err) return setError(result.err)
+            
         })
         
-
     }
 
     return(
