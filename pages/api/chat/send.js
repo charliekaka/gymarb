@@ -32,15 +32,12 @@ export default async function handler(req,res){
             db.db("gymarb").collection("users").countDocuments({username: recipient}, { limit:1 }, (err,found)=>{
                 if(err){
                     res.status(500).json({err: "db connection error"})
-                    db.close()
                     reject({err: "db query error"})
                 }
                 if(found){
-                    db.close()
                     resolve(true)
                 }else{                    
                     res.status(404).json({err: "Recipient not found"})
-                    db.close()
                     reject({err: "recipient not found"})
                 }
             })
@@ -50,6 +47,7 @@ export default async function handler(req,res){
         return
     })
 
+    // wait for checks to finish
     const yep = await checks
 
     if(yep){
@@ -83,6 +81,7 @@ export default async function handler(req,res){
     
                     if(chat){
                         res.status(400).json({err: "Chat duplicate"})
+                        db.close()
                         reject({err: "Chat duplicate"})
                     }else{
                         db.db("gymarb").collection("chat").insertOne(data, (err, result)=>{
@@ -90,6 +89,7 @@ export default async function handler(req,res){
                                 res.status(500).json({err: "db query error"})
                                 reject({err:"db query error"})
                             }
+                            
                             res.status(200).json({msg:"success"})
                             resolve({msg:"success"})
                         })
