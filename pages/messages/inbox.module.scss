@@ -56,18 +56,39 @@ $blueish: #87cefa;
                 width: 100%;
                 height: 75px;
                 border-bottom: 1px solid $greyish;
+                &:hover{
+                    background-color: rgb(247, 247, 247);
+                }
+                &:active{
+                    background-color: rgb(226, 226, 226);
+                }
 
                 .contactItemText{
                     font-size: 18px;
-                    
                 }
             }
         }
+
         .content{
             width: 100%;
-            display: flex;
-            justify-content: center;
-            padding-top: 15px;
+            padding-left: 8px;
+
+            .messageBoxContainer{
+                border:1px solid blue;
+                
+                .messageBox{
+                    border:2px solid red;
+                }
+            }
+
+            .chatLogs{
+                display:flex;
+                
+                .chatLogsSub{
+                    color:$greyish;
+                    padding-right: 9px;
+                }
+            }
 
             .composeForm{
                 display: flex;
