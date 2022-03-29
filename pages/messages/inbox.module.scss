@@ -70,25 +70,48 @@ $blueish: #87cefa;
         }
 
         .content{
+            display:flex;
+            flex-direction: column;
             width: 100%;
-            padding-left: 8px;
-
+            
+            .chat{
+                padding-left: 8px;
+                
+                .chatLogs{
+                    display:flex;
+                    flex-wrap: wrap;
+                    
+                    .chatLogsSub{
+                        color:$greyish;
+                        padding-right: 9px;
+                    }
+                }
+            }
+            
             .messageBoxContainer{
-                border:1px solid blue;
-                
-                .messageBox{
-                    border:2px solid red;
-                }
-            }
-
-            .chatLogs{
+                margin-top: auto;
                 display:flex;
-                
-                .chatLogsSub{
-                    color:$greyish;
-                    padding-right: 9px;
+                border-top:1px solid black;
+                height: 55px;
+                width: 100%;
+
+                .messageBox{
+                    display:flex;
+                    flex-wrap: nowrap;
+                    align-items: center;
+                    width: 100%;
+
+                    .messageInput{
+                        border:none;
+                        font-size:15px;
+                        width: 90%;
+                        height:100%;
+                        margin-right: 5px;
+                    }
                 }
             }
+            
+
 
             .composeForm{
                 display: flex;
@@ -105,21 +128,14 @@ $blueish: #87cefa;
                 input{
                     width: 200px;
                 }
-                .sender{
 
-                }
-                .recipient{
-
-                }
-                .messageContent{
-
-                }
                 .submit{
                     margin-top: 15px;
                     width: 100px;
                     height: 30px;
                 }
             }
+
         }
     }
 }

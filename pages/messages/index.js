@@ -4,13 +4,20 @@ import { useState } from "react"
 import { getCookie } from "../api/user/verifyJwt";
 import { handleChat } from "../api/chat/get"
 import Compose from "./Compose";
+import Messagebox from "./Messagebox";
 
 
 const messages = (props)=>{
     const {username, chats} = props;
 
-    const [chat, setChat] = useState(Compose(username))
-    
+    const [chat, setChat] = useState(<Compose name={username} />);
+
+    // other user
+    const [other, setRecip] = useState("");
+
+    // no chats open
+    const [def, setDefault] = useState(true);
+
     function formatContacts(items){
         // react renderable elements
         let contacts = [];
@@ -34,6 +41,8 @@ const messages = (props)=>{
             contacts.push(
                     <li key={i} className={styles.contactItem} onClick={(e)=>{
                         setChat(formatLogs)
+                        setRecip(other)
+                        setDefault(false)
                     }}>
                         <p className={styles.contactItemText}>
                             {other}
@@ -42,10 +51,6 @@ const messages = (props)=>{
             )
         }
         return contacts
-    }
-
-    function formatChat(chat){
-
     }
     
 
@@ -60,7 +65,11 @@ const messages = (props)=>{
 
             <div className={styles.contentContainer}>
                 <div className={styles.contacts}>
-                    <li className={styles.contactItem}>
+                    <li className={styles.contactItem} onClick={()=>{
+                        setChat(<Compose name={username} />)
+                        setRecip("")
+                        setDefault(true)
+                    }}>
                         <p className={styles.contactItemText}>
                             Create mew
                         </p>
@@ -69,14 +78,11 @@ const messages = (props)=>{
                 </div>
 
                 <div className={styles.content}>
-                    {chat}
-                    
-                    <div className={styles.messageBoxContainer}>
-                        <div className={styles.messageBox}>
-                            yepe
-                        </div>
-                </div>
-            
+                    <div className={styles.chat}>
+                        {chat} 
+                    </div>
+                
+                {!def ? <Messagebox users={[username,other]} /> : ""  /*Hide messagebox if no chat open*/}
 
                 </div>
             </div>

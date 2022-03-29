@@ -1,7 +1,8 @@
 import styles from "./inbox.module.scss";
 import { useState } from "react"
 
-export default function Compose(username){
+export default function Compose(usr){
+    const username = usr.name
 
     const [error, setError] = useState("")
 
@@ -15,6 +16,8 @@ export default function Compose(username){
             content: e?.target?.message?.value
         }
 
+        if(data.author===data.recipient) return setError("nope")
+
         // check for empty inputs
         for (let key of Object.keys(data)){
             if(!data[key]){
@@ -23,7 +26,7 @@ export default function Compose(username){
         }
 
         // post data to api endpoint
-        const apiRequest = await fetch("/api/chat/send", {
+        const apiRequest = await fetch("/api/chat/make", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
