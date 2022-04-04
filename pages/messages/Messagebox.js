@@ -1,11 +1,40 @@
 import styles from "./inbox.module.scss";
+import { useState } from "react";
 
 export default function Messagebox(props){
-    const username = props.users[0]
-    const other = props.users[1]
 
-    const handleMessage= (e) =>{
-        e.preventDefault()
+    const [error, setError] = useState("Type a message");
+
+    const [input, setInput] = useState("")
+
+    const username = props.users[0];
+    const other = props.users[1];
+
+
+    const handleMessage = async (e) =>{
+        e.preventDefault();
+
+        const data = {
+            sender: username,
+            recipient: other,
+            message: input
+        };
+
+        // check for empty message
+        if(!data.message) return setError("Enter an actual message");
+
+        const send = await fetch("/api/chat/send", {
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body: JSON.stringify(data)
+        });
+
+        send.json().then(r=>{
+            if(r.err) return setError(r.err);
+
+        })
     }
 
     return(
@@ -14,7 +43,11 @@ export default function Messagebox(props){
                 <input
                 className={styles.messageInput}
                 name="message"
-                placeholder="Type a message"/>
+                placeholder={error}
+                value={input}
+                onChange={(e)=>{
+                    setInput(e.target.value)
+                }}/>
 
                 <input
                 type="image"

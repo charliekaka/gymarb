@@ -76,6 +76,7 @@ $blueish: #87cefa;
             
             .chat{
                 padding-left: 8px;
+                overflow: auto;
                 
                 .chatLogs{
                     display:flex;

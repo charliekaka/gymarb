@@ -1,14 +1,16 @@
 import styles from "./inbox.module.scss";
 import Image from "next/image";
-import { useState } from "react"
+import { useState } from "react";
 import { getCookie } from "../api/user/verifyJwt";
-import { handleChat } from "../api/chat/get"
+import { handleChat } from "../api/chat/get";
 import Compose from "./Compose";
-import Messagebox from "./Messagebox";
-
 
 const messages = (props)=>{
-    const {username, chats} = props;
+
+
+    console.log(styles.chatLogs);
+
+    const {username} = props
 
     const [chat, setChat] = useState(<Compose name={username} />);
 
@@ -18,21 +20,32 @@ const messages = (props)=>{
     // no chats open
     const [def, setDefault] = useState(true);
 
+
     function formatContacts(items){
         // react renderable elements
         let contacts = [];
         
         // format contacts
         for(let i = 0; i < items.length; i++){
-            const {users, logs} = items[i];
+            let {users, logs} = items[i];
 
-            // format chat logs
-            const {time, sender, content} = logs[0];
-            const formatLogs = <div className={styles.chatLogs}>
-                                    <p className={styles.chatLogsSub}>{time}</p>
-                                    <p className={styles.chatLogsSub}>{sender}:</p>
-                                    <p>{content}</p>
-                                </div>
+            // chat instance of contact
+            function formatChatLogs(logs){
+                let arr = []
+                for(let j = 0; j < logs.length; j++){
+                    let {time, sender, content} = logs[j];
+                    arr.push(
+                        <div key={j} className={styles.chatLogs}>
+                            <p className={styles.chatLogsSub}>{time}</p>
+                            <p className={styles.chatLogsSub}>{sender} {">"} </p>
+                            <p>{content}</p>
+                        </div>
+                    )
+                }
+                return arr
+            }
+
+            const formatLogs = formatChatLogs(logs)
 
             // get the other user
             const other = (users[0]===username)?users[1]:users[0];
@@ -53,6 +66,51 @@ const messages = (props)=>{
         return contacts
     }
     
+    
+    
+    const [error, setError] = useState("Type a message");
+
+    const [input, setInput] = useState("")
+
+    const handleMessage = async (e) =>{
+        e.preventDefault();
+
+        const data = {
+            sender: username,
+            recipient: other,
+            message: input
+        };
+
+        // check for empty message
+        if(!data.message) return setError("Enter an actual message");
+
+        const send = await fetch("/api/chat/send", {
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body: JSON.stringify(data)
+        });
+
+        send.json().then(r=>{
+            if(r.err) return setError(r.err);
+            setInput("")
+
+            const arr = []
+
+            arr.push(
+                <div key={arr.length} className={styles.chatLogs}>
+                    <p className={styles.chatLogsSub}>{Date.now()}</p>
+                    <p className={styles.chatLogsSub}>{data.sender} {">"} </p>
+                    <p>{data.message}</p>
+                </div>
+            )
+
+            // assign the temporary message
+            setChat(chat => [...chat, arr])
+        })
+    }
+
 
     return(
         <div className={styles.container}>
@@ -74,7 +132,7 @@ const messages = (props)=>{
                             Create mew
                         </p>
                     </li>
-                    {formatContacts(chats)}
+                    {formatContacts(props.chats)}
                 </div>
 
                 <div className={styles.content}>
@@ -82,7 +140,31 @@ const messages = (props)=>{
                         {chat} 
                     </div>
                 
-                {!def ? <Messagebox users={[username,other]} /> : ""  /*Hide messagebox if no chat open*/}
+
+                {!def?
+                <div className={styles.messageBoxContainer} onSubmit={handleMessage}>
+                    <form className={styles.messageBox}>
+                        <input
+                        className={styles.messageInput}
+                        name="message"
+                        placeholder={error}
+                        value={input}
+                        onChange={(e)=>{
+                            setInput(e.target.value)
+                        }}/>
+
+                        <input
+                        type="image"
+                        src="/sendmessage.svg"
+                        name="send"
+                        width="32"
+                        height="32"
+                        alt="send"/>
+
+                    </form>
+                </div>
+                :""}
+
 
                 </div>
             </div>

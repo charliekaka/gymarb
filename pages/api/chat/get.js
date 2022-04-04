@@ -11,6 +11,7 @@ export async function handleChat(username){
 
             // get chats of user
             db.db("gymarb").collection("chat").find({
+                // get all chats that user is part of
                 users:{$in:[username]}
             }).toArray((err, res)=>{
                 if(err) reject("db query error");
