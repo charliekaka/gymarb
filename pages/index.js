@@ -128,7 +128,7 @@ export default function Home(props) {
             Log in
           </a>
           <a href="/register" className="registerBtn">
-          Register
+            Register
           </a>
         </>
       )

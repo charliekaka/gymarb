@@ -32,6 +32,7 @@ $blueish: #87cefa;
             }
     
             .listingTextContainer{
+                overflow: hidden;
                 margin-left: 15px;
                 width: 300px;
                 display: grid;
@@ -41,6 +42,7 @@ $blueish: #87cefa;
                     
                 .itemTitle{
                     grid-area: title;
+                    position: absolute;
                 }
     
                 .itemDate{
@@ -53,9 +55,13 @@ $blueish: #87cefa;
                 
                 .itemPrice{
                     grid-area: price;
+                    padding-top: 30px;
+                    padding-left: 2px;
                 }
     
                 .itemUser{
+                    padding-top: 30px;
+                    padding-right: 5px;
                     grid-area: user;
                     text-align: right;
                     color:$greyish;

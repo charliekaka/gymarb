@@ -20,6 +20,21 @@ const messages = (props)=>{
     // no chats open
     const [def, setDefault] = useState(true);
 
+    // formating time logic
+    function formatTime(time){
+        let difference = Date.now()-time;
+
+        let seconds = Math.round(difference/1000);
+        let minutes = Math.round(seconds/60);
+        let hours = Math.round(minutes/60);
+        let days = Math.round(hours/24);
+
+        if(seconds > 59) return minutes.toString()+"m";
+        if(minutes > 59) return hours.toString()+"h";
+        if(hours > 24) return days.toString()+"d";
+
+        return seconds.toString()+"s";
+    }
 
     function formatContacts(items){
         // react renderable elements
@@ -34,9 +49,14 @@ const messages = (props)=>{
                 let arr = []
                 for(let j = 0; j < logs.length; j++){
                     let {time, sender, content} = logs[j];
+
+                    const cleanTime = formatTime(time) || "";
+
+                    console.log(cleanTime);
+
                     arr.push(
                         <div key={j} className={styles.chatLogs}>
-                            <p className={styles.chatLogsSub}>{time}</p>
+                            <p className={styles.chatLogsSub}>{cleanTime}</p>
                             <p className={styles.chatLogsSub}>{sender} {">"} </p>
                             <p>{content}</p>
                         </div>
@@ -98,9 +118,11 @@ const messages = (props)=>{
 
             const arr = []
 
+            const cleanTime = formatTime(Date.now()) || "";
+
             arr.push(
                 <div key={arr.length} className={styles.chatLogs}>
-                    <p className={styles.chatLogsSub}>{Date.now()}</p>
+                    <p className={styles.chatLogsSub}>{cleanTime}</p>
                     <p className={styles.chatLogsSub}>{data.sender} {">"} </p>
                     <p>{data.message}</p>
                 </div>
