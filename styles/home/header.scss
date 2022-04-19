@@ -28,6 +28,7 @@ header{
         align-items: center;
 
         .inboxSvgContainer{
+            padding-top: 10px;
             margin-right: 25px;
             &:hover{
                 border-bottom:2px solid $greyish;
@@ -50,12 +51,11 @@ header{
     }
 
     .headerButtonContainer{
-        padding-top: 10px;
         padding-right: 10px;
         margin-left: auto;
 
-
         .dropdownContainer {
+            padding-top: 10px;
             position: relative;
             display: inline-block;
             &:hover{

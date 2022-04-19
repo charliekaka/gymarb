@@ -88,9 +88,17 @@ export default function Home(props) {
           <a className="inboxSvgContainer" href="/messages">
             <Image
             src="/inbox.svg"
-            alt="inbox icon"
+            alt="listing plus icon"
             width={40}
             height={30} />
+          </a>
+          <a className="inboxSvgContainer" href="/listing/create">
+            <Image
+            className="listingLinkIcon"
+            src="/plusIcon.svg"
+            width={25}
+            height={25}
+            />
           </a>
           <div className="dropdownContainer">
             <div className="profileRefContainer">
@@ -144,9 +152,6 @@ export default function Home(props) {
           {username ? <h3 className="welcomeMessage">{username}</h3>:""}
           <div className="headerButtonContainer">
             {checkIfLoggedIn(username)}
-
-          </div>
-          <div>
           </div>
         </header>
 
