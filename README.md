@@ -8,7 +8,6 @@ https://nodejs.org/en/
 Download and unzip the folder
 
 ## Step 3
-Copy the file path of the folder
 Press Win+R and type "cmd" and press enter
 
 ## Step 4
