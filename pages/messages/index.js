@@ -4,12 +4,9 @@ import { useState } from "react";
 import { getCookie } from "../api/user/verifyJwt";
 import { handleChat } from "../api/chat/get";
 import Compose from "./Compose";
+import Link from "next/link";
 
-const messages = (props)=>{
-
-
-    console.log(styles.chatLogs);
-
+const Messages = (props)=>{
     const {username} = props
 
     const [chat, setChat] = useState(<Compose name={username} />);
@@ -86,8 +83,6 @@ const messages = (props)=>{
         return contacts
     }
     
-    
-    
     const [error, setError] = useState("Type a message");
 
     const [input, setInput] = useState("")
@@ -133,15 +128,14 @@ const messages = (props)=>{
         })
     }
 
-
     return(
         <div className={styles.container}>
-            <a className={styles.backArrowSvg} href="/">
+            <Link className={styles.backArrowSvg} href="/">
                 <Image
                 src="/backarrow.svg"
                 width={70}
                 height={70}/>
-            </a>
+            </Link>
 
             <div className={styles.contentContainer}>
                 <div className={styles.contacts}>
@@ -162,7 +156,6 @@ const messages = (props)=>{
                         {chat} 
                     </div>
                 
-
                 {!def?
                 <div className={styles.messageBoxContainer} onSubmit={handleMessage}>
                     <form className={styles.messageBox}>
@@ -186,8 +179,6 @@ const messages = (props)=>{
                     </form>
                 </div>
                 :""}
-
-
                 </div>
             </div>
         </div>
@@ -221,4 +212,4 @@ export async function getServerSideProps(ctx){
     }}
 }
 
-export default messages;
+export default Messages;

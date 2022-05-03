@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import Link from "next/link";
 
-const login = () => {
+const Login = () => {
     const router = useRouter();
     // error message
     const [error, setError] = useState("");
@@ -37,9 +38,9 @@ const login = () => {
 
     return (
         <div>
-            <a href="/" className="backArrowSvg">
+            <Link href="/" className="backArrowSvg">
                 <Image src="/backarrow.svg" width={70} height={70}/>
-            </a>
+            </Link>
             <div className="authFormContainer">
                 <form 
                 className="authForm"
@@ -60,7 +61,7 @@ const login = () => {
                     type="submit"
                     value="Sign in" />
                     <div className="authWrongPath">
-                        <p>Don´t have an account? <a href="/register">Create account</a></p>
+                        <p>Don´t have an account? <Link href="/register">Create account</Link></p>
                     </div>
                 </form>
                 <h3 className="responseMessage">{error}</h3>
@@ -89,4 +90,4 @@ export async function getServerSideProps(ctx){
     return{props:{}}
 }
 
-export default login
+export default Login

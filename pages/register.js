@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import Link from "next/link";
 
-const register = () => {
+const Register = () => {
   // error message
   const [error, setError] = useState("");
   const router = useRouter();
@@ -52,9 +53,9 @@ const register = () => {
 
     return (
         <div>
-          <a href="/" className="backArrowSvg">
+          <Link href="/" className="backArrowSvg">
             <Image src="/backarrow.svg" width={70} height={70}/>
-          </a>
+          </Link>
             <div className="authFormContainer">
                 <form 
                 className="authForm"
@@ -81,7 +82,7 @@ const register = () => {
                     value="Register" />
 
                     <div className="authWrongPath">
-                      <p>Already registered? <a href="/login">Log in</a></p>
+                      <p>Already registered? <Link href="/login">Log in</Link></p>
                     </div>
                 </form>
                 <h3 className="responseMessage">{error}</h3>
@@ -110,4 +111,4 @@ export async function getServerSideProps(ctx){
   return{props:{}}
 }
 
-export default register
+export default Register

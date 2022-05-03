@@ -3,9 +3,10 @@ import { getCookie } from "../api/user/verifyJwt";
 import { getListings } from "../api/listing/fetchListings";
 import styles from "./listing.module.scss";
 import Image from "next/image";
+import Link from "next/link";
 
 
-export default function listing(props){
+export default function Listing(props){
     const {list, username} = props;
     const router = useRouter();
 
@@ -21,16 +22,16 @@ export default function listing(props){
     }
 
     // handle invalid route
-    if(!item) return <h1><a href="/">home</a> 404 Not found :/</h1>
+    if(!item) return <h1><Link href="/">home</Link> 404 Not found :/</h1>
 
     const {title, description, price, user} = item;
     const date = item.date?.plain;
 
     return(
         <div className={styles.main}>
-            <a href="/" className={styles.back}>
+            <Link href="/" className={styles.back}>
                 <Image src="/backarrow.svg" width={70} height={70}/>
-            </a>
+            </Link>
 
             <div className={styles.container}>
                 <div className={styles.date}>

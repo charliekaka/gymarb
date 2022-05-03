@@ -3,8 +3,9 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import styles from "./create.module.scss";
+import Link from "next/link";
 
-const createlisting = (props) => {
+const Createlisting = (props) => {
     const {username} = props;
     const router = useRouter();
     const [error, setError] = useState("");
@@ -44,9 +45,9 @@ const createlisting = (props) => {
 
     return(
         <div className={styles.container}>
-            <a href="/" className={styles.back}>
+            <Link href="/" className={styles.back}>
                 <Image src="/backarrow.svg" width={70} height={70}/>
-            </a>
+            </Link>
             <div className={styles.content}>
                 <h1>Create a listing!</h1>
                 <form className={styles.form} onSubmit={createListingSubmit}>
@@ -85,4 +86,4 @@ export async function getServerSideProps(ctx){
     }
 }
 
-export default createlisting
+export default Createlisting

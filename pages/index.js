@@ -1,6 +1,7 @@
 import { getCookie } from "./api/user/verifyJwt";
 import { getListings } from "./api/listing/fetchListings";
 import { useRouter } from "next/dist/client/router";
+import Link from "next/link"
 import React, { useState } from "react";
 import Select from "react-select";
 import Image from "next/image";
@@ -52,7 +53,7 @@ export default function Home(props) {
         
         listingData.push(
           // listing redirects to endpoint of listing id
-          <a key={i} href={`listing/${id}`} className="listingLink">
+          <Link key={i} href={`listing/${id}`} className="listingLink">
             <div className="listingItem" >
                 <div className="itemImageContainer">
                   <img className="itemImage" src="/emptyimage.svg" />
@@ -64,7 +65,7 @@ export default function Home(props) {
                   <p className="itemUser">{user} {(user===username)?"(you)":""}</p>
                 </div>
             </div>
-          </a>
+          </Link>
       )
     }
     return listingData
@@ -85,21 +86,21 @@ export default function Home(props) {
       return(
         <>
         <div className="headerRight">
-          <a className="inboxSvgContainer" href="/messages">
+          <Link className="inboxSvgContainer" href="/messages">
             <Image
             src="/inbox.svg"
             alt="listing plus icon"
             width={40}
             height={30} />
-          </a>
-          <a className="inboxSvgContainer" href="/listing/create">
+          </Link>
+          <Link className="inboxSvgContainer" href="/listing/create">
             <Image
             className="listingLinkIcon"
             src="/plusIcon.svg"
             width={25}
             height={25}
             />
-          </a>
+          </Link>
           <div className="dropdownContainer">
             <div className="profileRefContainer">
               <Image
@@ -109,19 +110,17 @@ export default function Home(props) {
               height={64} />
             </div>
             <div className="dropdown-content">
-              <a>{username}</a>
+              <Link>{username}</Link>
 
-              <a onClick={()=>{
-                router.push("/listing/create")
-              }}>Create listing</a>
+              <Link href="listings/create">Create listing</Link>
 
-              <a onClick={()=>{
+              <Link onClick={()=>{
                 fetch("api/user/logout").then(()=>{
                   router.push("/")
                 })
               }}>
                 Log out
-              </a>
+              </Link>
 
             </div>
           </div>
@@ -132,12 +131,12 @@ export default function Home(props) {
       // render if user is not logged in
       return(
         <>
-          <a href="/login" className="loginBtn">
+          <Link href="/login" className="loginBtn">
             Log in
-          </a>
-          <a href="/register" className="registerBtn">
+          </Link>
+          <Link href="/register" className="registerBtn">
             Register
-          </a>
+          </Link>
         </>
       )
     }
@@ -147,21 +146,18 @@ export default function Home(props) {
   return (
     <main className="app">
       <div className="appContainer">
-
         <header>    
           {username ? <h3 className="welcomeMessage">{username}</h3>:""}
           <div className="headerButtonContainer">
             {checkIfLoggedIn(username)}
           </div>
         </header>
-
         <div className="secondHeader">
           <label className="sort-by">Sort by:</label>
           <Select instanceId={"selector"} options={options} placeholder={"New"} onChange={(e)=>{
             renewListings(renderListings(list, e.value))
           }} />
         </div>
-        
         <div className="listingItemContainer">
           {listings}
         </div>
