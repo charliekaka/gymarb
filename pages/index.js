@@ -53,19 +53,21 @@ export default function Home(props) {
         
         listingData.push(
           // listing redirects to endpoint of listing id
-          <Link key={i} href={`listing/${id}`} className="listingLink">
-            <div className="listingItem" >
-                <div className="itemImageContainer">
-                  <img className="itemImage" src="/emptyimage.svg" />
-                </div>
-                <div className="listingTextContainer">
-                  <h3 className="itemTitle">{title}</h3>
-                  <p className="itemDate">{date.plain}</p>
-                  <p className="itemPrice">{price}.€</p>
-                  <p className="itemUser">{user} {(user===username)?"(you)":""}</p>
-                </div>
-            </div>
-          </Link>
+          <div key={i} className="listingLink">
+            <Link href={`listing/${id}`}>
+              <div className="listingItem" >
+                  <div className="itemImageContainer">
+                    <img className="itemImage" src="/emptyimage.svg" />
+                  </div>
+                  <div className="listingTextContainer">
+                    <h3 className="itemTitle">{title}</h3>
+                    <p className="itemDate">{date.plain}</p>
+                    <p className="itemPrice">{price}.€</p>
+                    <p className="itemUser">{user} {(user===username)?"(you)":""}</p>
+                  </div>
+              </div>
+            </Link>
+          </div>
       )
     }
     return listingData
@@ -86,21 +88,25 @@ export default function Home(props) {
       return(
         <>
         <div className="headerRight">
-          <Link className="inboxSvgContainer" href="/messages">
-            <Image
-            src="/inbox.svg"
-            alt="listing plus icon"
-            width={40}
-            height={30} />
-          </Link>
-          <Link className="inboxSvgContainer" href="/listing/create">
-            <Image
-            className="listingLinkIcon"
-            src="/plusIcon.svg"
-            width={25}
-            height={25}
-            />
-          </Link>
+          <div className="inboxSvgContainer">
+            <Link href="/messages">
+              <Image
+              src="/inbox.svg"
+              alt="listing plus icon"
+              width={40}
+              height={30} />
+            </Link>
+          </div>
+          <div className="inboxSvgContainer">
+            <Link href="listing/create">
+              <Image
+              className="listingLinkIcon"
+              src="/plusIcon.svg"
+              width={25}
+              height={25}
+              />
+            </Link>
+          </div>
           <div className="dropdownContainer">
             <div className="profileRefContainer">
               <Image
@@ -110,17 +116,15 @@ export default function Home(props) {
               height={64} />
             </div>
             <div className="dropdown-content">
-              <Link>{username}</Link>
-
+              <Link href="/">{username}</Link>
               <Link href="listings/create">Create listing</Link>
-
-              <Link onClick={()=>{
+              <div className="dropdown-content" onClick={()=>{
                 fetch("api/user/logout").then(()=>{
                   router.push("/")
                 })
               }}>
                 Log out
-              </Link>
+              </div>
 
             </div>
           </div>
@@ -131,12 +135,16 @@ export default function Home(props) {
       // render if user is not logged in
       return(
         <>
-          <Link href="/login" className="loginBtn">
-            Log in
-          </Link>
-          <Link href="/register" className="registerBtn">
-            Register
-          </Link>
+          <div className="loginBtn">
+            <Link href="/login">
+              Log in
+            </Link>
+          </div>
+          <div className="registerBtn">
+            <Link href="/register">
+              Register
+            </Link>
+          </div>
         </>
       )
     }

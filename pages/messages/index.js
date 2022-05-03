@@ -26,9 +26,10 @@ const Messages = (props)=>{
         let hours = Math.round(minutes/60);
         let days = Math.round(hours/24);
 
-        if(seconds > 59) return minutes.toString()+"m";
-        if(minutes > 59) return hours.toString()+"h";
+        if(days > 365) return ">1yr"
         if(hours > 24) return days.toString()+"d";
+        if(minutes > 59) return hours.toString()+"h";
+        if(seconds > 59) return minutes.toString()+"m";
 
         return seconds.toString()+"s";
     }
@@ -130,12 +131,14 @@ const Messages = (props)=>{
 
     return(
         <div className={styles.container}>
-            <Link className={styles.backArrowSvg} href="/">
-                <Image
-                src="/backarrow.svg"
-                width={70}
-                height={70}/>
-            </Link>
+            <div className={styles.backArrowSvg}>
+                <Link href="/">
+                    <Image
+                    src="/backarrow.svg"
+                    width={70}
+                    height={70}/>
+                </Link>
+            </div>
 
             <div className={styles.contentContainer}>
                 <div className={styles.contacts}>

@@ -29,9 +29,11 @@ export default function Listing(props){
 
     return(
         <div className={styles.main}>
-            <Link href="/" className={styles.back}>
-                <Image src="/backarrow.svg" width={70} height={70}/>
-            </Link>
+            <div className={styles.back}>
+                <Link href="/">
+                    <Image src="/backarrow.svg" width={70} height={70}/>
+                </Link>
+            </div>
 
             <div className={styles.container}>
                 <div className={styles.date}>

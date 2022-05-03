@@ -45,9 +45,11 @@ const Createlisting = (props) => {
 
     return(
         <div className={styles.container}>
-            <Link href="/" className={styles.back}>
-                <Image src="/backarrow.svg" width={70} height={70}/>
-            </Link>
+            <div className={styles.back}>
+                <Link href="/">
+                    <Image src="/backarrow.svg" width={70} height={70}/>
+                </Link>
+            </div>
             <div className={styles.content}>
                 <h1>Create a listing!</h1>
                 <form className={styles.form} onSubmit={createListingSubmit}>

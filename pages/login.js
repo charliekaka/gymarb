@@ -38,9 +38,11 @@ const Login = () => {
 
     return (
         <div>
-            <Link href="/" className="backArrowSvg">
-                <Image src="/backarrow.svg" width={70} height={70}/>
-            </Link>
+            <div className="backArrowSvg">
+                <Link href="/">
+                    <Image src="/backarrow.svg" width={70} height={70}/>
+                </Link>
+            </div>
             <div className="authFormContainer">
                 <form 
                 className="authForm"
