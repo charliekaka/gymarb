@@ -117,7 +117,7 @@ export default function Home(props) {
             </div>
             <div className="dropdown-content">
               <Link href="/">{username}</Link>
-              <Link href="listings/create">Create listing</Link>
+              <Link href="listing/create">Create listing</Link>
               <div className="dropdown-content" onClick={()=>{
                 fetch("api/user/logout").then(()=>{
                   router.push("/")
@@ -125,7 +125,6 @@ export default function Home(props) {
               }}>
                 Log out
               </div>
-
             </div>
           </div>
         </div>
@@ -135,16 +134,16 @@ export default function Home(props) {
       // render if user is not logged in
       return(
         <>
-          <div className="loginBtn">
-            <Link href="/login">
-              Log in
-            </Link>
-          </div>
-          <div className="registerBtn">
-            <Link href="/register">
-              Register
-            </Link>
-          </div>
+          <Link href="/login">
+            <div className="loginBtn">
+                Log in
+            </div>
+          </Link>
+          <Link href="/register">
+            <div className="registerBtn">
+                Register
+            </div>
+          </Link>
         </>
       )
     }
